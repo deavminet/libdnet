@@ -198,7 +198,25 @@ public final class DClient
 		/* Check if the operation completed successfully */
 		if(resp[0])
 		{
+			/* Length as byte array */
+			byte[] numberBytes;
+			numberBytes.length = 8;
+
+			/* As Skippy would say, this is jank, but I literay am so lazy now hehe */
 			memberCount = *cast(long*)resp[1..resp.length].ptr;
+
+			/* Decode the length (Big Endian) to Little Endian */
+			numberBytes[0] = *((cast(byte*)&memberCount)+7);
+			numberBytes[1] = *((cast(byte*)&memberCount)+6);
+			numberBytes[2] = *((cast(byte*)&memberCount)+5);
+			numberBytes[3] = *((cast(byte*)&memberCount)+4);
+			numberBytes[4] = *((cast(byte*)&memberCount)+3);
+			numberBytes[5] = *((cast(byte*)&memberCount)+2);
+			numberBytes[6] = *((cast(byte*)&memberCount)+1);
+			numberBytes[7] = *((cast(byte*)&memberCount)+0);
+
+			memberCount = *cast(long*)numberBytes.ptr;
+			
 		}
 		else
 		{
