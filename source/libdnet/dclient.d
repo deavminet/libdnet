@@ -175,6 +175,43 @@ public final class DClient
 	}
 
 	/**
+	* Returns the count of members in the
+	* given channel
+	*/
+	public ulong getMemberCount(string channelName)
+	{
+		/* The member count */
+		long memberCount;
+	
+		/* The protocol data to send */
+		byte[] protocolData = [8];
+
+		/* Encode the channel name */
+		protocolData ~= cast(byte[])channelName;
+
+		/* Send the protocol data */
+		manager.sendMessage(i, protocolData);
+
+		/* Receive the server's response */
+		byte[] resp = manager.receiveMessage(i);
+
+		/* Check if the operation completed successfully */
+		if(resp[0])
+		{
+			memberCount = *cast(long*)resp[1..resp.length].ptr;
+		}
+		else
+		{
+			/* TODO: Error handling */
+		}
+
+		/* Set next available tag */
+		i++;
+
+		return memberCount;
+	}
+
+	/**
 	* Disconnect from the server
 	*
 	* TODO: This is still a work in progress
