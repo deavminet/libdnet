@@ -1,0 +1,10 @@
+{
+	"authors": [
+		"Tristan B. Kildaire"
+	],
+	"copyright": "Copyright © 2020, Tristan B. Kildaire",
+	"description": "dnet client library",
+	"license": "LGPL v2.1",
+	"name": "libdnet",
+	"targetType" : "library"
+}
