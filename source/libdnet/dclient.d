@@ -175,6 +175,47 @@ public final class DClient
 	}
 
 	/**
+	* Returns the list of members in the
+	* given channel
+	*/
+	public string[] getMembers(string channel)
+	{
+		/* The list of members */
+		string[] members;
+
+		/* The protocol data to send */
+		byte[] protocolData = [9];
+
+		/**
+		* Encode the channel name
+		*/
+		protocolData ~= cast(byte[])channel;
+
+		/* Send the protocol data */
+		manager.sendMessage(i, protocolData);
+
+		/* Receive the server's response */
+		byte[] resp = manager.receiveMessage(i);
+
+		/* If the operation completed successfully */
+		if(resp[0])
+		{
+			string memberList = cast(string)resp[1..resp.length];
+			members = split(memberList, ",");
+		}
+		/* If there was an error */
+		else
+		{
+			/* TODO: Error handling */
+		}
+
+		/* Set next available tag */
+		i++;
+
+		return members;
+	}
+
+	/**
 	* Returns the count of members in the
 	* given channel
 	*/
