@@ -9,5 +9,6 @@
 	"description": "dnet client library",
 	"license": "LGPL v2.1",
 	"name": "libdnet",
-	"targetType": "library"
+	"targetType": "library",
+	"targetPath": "bin"
 }
