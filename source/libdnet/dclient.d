@@ -270,6 +270,37 @@ public final class DClient
 		return memberCount;
 	}
 
+	public string getMotd()
+	{
+		/* The message of the day */
+		string motd;
+
+		/* The protocol data to send */
+		byte[] protocolData = [11];
+
+		/* Send the protocol data */
+		manager.sendMessage(i, protocolData);
+
+		/* Receive the server's response */
+		byte[] resp = manager.receiveMessage(i);
+
+		/* Check if the operation completed successfully */
+		if(resp[0])
+		{
+			/* Set the message of the day */
+			motd = cast(string)resp[1..resp.length];
+		}
+		else
+		{
+			/* TODO: Error handling */
+		}
+
+		/* Set next available tag */
+		i++;
+
+		return motd;
+	}
+
 	/**
 	* Disconnect from the server
 	*
