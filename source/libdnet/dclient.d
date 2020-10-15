@@ -43,11 +43,15 @@ public final class DClient
 		/* Initialize the manager */
 		manager = new Manager(socket);
 
-		/* Create a queue for normal traffic (request-reply) */
+		/* Create a queue for normal traffic (request-reply on tag: 0) */
 		Queue reqRepQueue = new Queue(0);
 
-		/* Create a queue for notifications (replies-only) */
+		/* Create a queue for notifications (replies-only on tag: 1) */
 		Queue notificationQueue = new Queue(1);
+
+		/* Add these queues to the tracker */
+		manager.addQueue(reqRepQueue);
+		manager.addQueue(notificationQueue);
 	}
 
 
