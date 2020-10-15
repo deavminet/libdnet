@@ -86,9 +86,6 @@ public final class DClient
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
 
-		/* Set next available tag */
-		i++;
-
 		return cast(bool)resp[0];
 	}
 
