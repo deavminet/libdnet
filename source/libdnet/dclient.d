@@ -106,13 +106,11 @@ public final class DClient
 		data ~= channel;
 
 		/* Send the protocol data */
-		manager.sendMessage(i, data);
+		DataMessage protocolData = new DataMessage(0, data);
+		socket.send(protocolData.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
-
-		/* Set next available tag */
-		i++;
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		return cast(bool)resp[0];
 	}
@@ -131,10 +129,11 @@ public final class DClient
 		byte[] data = [6];
 
 		/* Send the protocol data */
-		manager.sendMessage(i, data);
+		DataMessage protocolDataMsg = new DataMessage(0, data);
+		socket.send(protocolDataMsg.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		/* Only generate a list if command was successful */
 		if(resp[0])
@@ -143,9 +142,6 @@ public final class DClient
 			string channelList = cast(string)resp[1..resp.length];
 			channels = split(channelList, ",");
 		}
-
-		/* Set next available tag */
-		i++;
 
 		return channels;
 	}
@@ -188,13 +184,11 @@ public final class DClient
 		protocolData ~= cast(byte[])message;
 
 		/* Send the protocol data */
-		manager.sendMessage(i, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		socket.send(protocolDataMsg.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
-
-		/* Set next available tag */
-		i++;
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		return cast(bool)resp[0];
 	}
@@ -217,10 +211,11 @@ public final class DClient
 		protocolData ~= cast(byte[])channel;
 
 		/* Send the protocol data */
-		manager.sendMessage(i, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		socket.send(protocolDataMsg.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		/* If the operation completed successfully */
 		if(resp[0])
@@ -256,10 +251,11 @@ public final class DClient
 		protocolData ~= cast(byte[])channelName;
 
 		/* Send the protocol data */
-		manager.sendMessage(i, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		socket.send(protocolDataMsg.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		/* Check if the operation completed successfully */
 		if(resp[0])
@@ -304,10 +300,11 @@ public final class DClient
 		byte[] protocolData = [11];
 
 		/* Send the protocol data */
-		manager.sendMessage(i, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		socket.send(protocolDataMsg.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		/* Check if the operation completed successfully */
 		if(resp[0])
@@ -338,7 +335,7 @@ public final class DClient
 		/* FIXME: I must fix manager for this, the socket stays active and hangs the .join */
 		/* FIXME (above): due to it being blocking, although I did think I closed the socket */
 		/* TODO: Not the above, it's actually garbage collector */
-		manager.stopManager();	
+		//manager.stopManager();	
 		writeln("manager stopped");
 	}
 }
