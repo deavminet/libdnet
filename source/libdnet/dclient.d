@@ -2,6 +2,7 @@ module libdnet.dclient;
 
 import tristanable.manager : Manager;
 import tristanable.queue : Queue;
+import tristanable.encoding : DataMessage;
 import std.socket;
 import std.stdio;
 import std.conv : to;
@@ -13,6 +14,12 @@ public final class DClient
 	* tristanabale tag manager
 	*/
 	private Manager manager;
+	private Socket socket;
+	/* Create a queue for normal traffic (request-reply on tag: 0) */
+	private	Queue reqRepQueue;
+
+		/* Create a queue for notifications (replies-only on tag: 1) */
+	private Queue notificationQueue;
 
 
 	/* TODO: Tristsnable doesn't, unlike my java version, let youn really reuse tags */
@@ -31,7 +38,7 @@ public final class DClient
 	{
 		/* Initialize the socket */
 		/* TODO: Error handling */
-		Socket socket = new Socket(address.addressFamily, SocketType.STREAM, ProtocolType.TCP);
+		socket = new Socket(address.addressFamily, SocketType.STREAM, ProtocolType.TCP);
 		socket.connect(address);
 		
 		/* Initialize tristanable */
@@ -44,10 +51,10 @@ public final class DClient
 		manager = new Manager(socket);
 
 		/* Create a queue for normal traffic (request-reply on tag: 0) */
-		Queue reqRepQueue = new Queue(0);
+		reqRepQueue = new Queue(0);
 
 		/* Create a queue for notifications (replies-only on tag: 1) */
-		Queue notificationQueue = new Queue(1);
+		notificationQueue = new Queue(1);
 
 		/* Add these queues to the tracker */
 		manager.addQueue(reqRepQueue);
@@ -73,10 +80,11 @@ public final class DClient
 		data ~= password;
 
 		/* Send the protocol data */
-		manager.sendMessage(i, data);
+		DataMessage protocolData = new DataMessage(0, data);
+		socket.send(protocolData.encode());
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(i);
+		byte[] resp = reqRepQueue.dequeue().getData();
 
 		/* Set next available tag */
 		i++;
