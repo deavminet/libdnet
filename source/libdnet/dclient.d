@@ -1,6 +1,7 @@
 module libdnet.dclient;
 
 import tristanable.manager : Manager;
+import tristanable.queue : Queue;
 import std.socket;
 import std.stdio;
 import std.conv : to;
@@ -29,12 +30,27 @@ public final class DClient
 	this(Address address)
 	{
 		/* Initialize the socket */
+		/* TODO: Error handling */
 		Socket socket = new Socket(address.addressFamily, SocketType.STREAM, ProtocolType.TCP);
 		socket.connect(address);
 		
+		/* Initialize tristanable */
+		initTristanable(socket);
+	}
+
+	private void initTristanable(Socket socket)
+	{
 		/* Initialize the manager */
 		manager = new Manager(socket);
+
+		/* Create a queue for normal traffic (request-reply) */
+		Queue reqRepQueue = new Queue(0);
+
+		/* Create a queue for notifications (replies-only) */
+		Queue notificationQueue = new Queue(1);
 	}
+
+
 
 	/**
 	* Authenticates as a client with the server
