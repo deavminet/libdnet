@@ -4,7 +4,7 @@
 	],
 	"copyright": "Copyright © 2020, Tristan B. Kildaire",
 	"dependencies": {
-		"tristanable": "~>0.0.33"
+		"tristanable": "~>0.1.0"
 	},
 	"description": "dnet client library",
 	"license": "LGPL v2.1",
