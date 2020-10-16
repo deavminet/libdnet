@@ -51,11 +51,11 @@ public final class DClient
 		/* Initialize the manager */
 		manager = new Manager(socket);
 
-		/* Create a queue for normal traffic (request-reply on tag: 0) */
-		reqRepQueue = new Queue(0);
+		/* Create a queue for normal traffic (request-reply on tag: 1) */
+		reqRepQueue = new Queue(1);
 
-		/* Create a queue for notifications (replies-only on tag: 1) */
-		notificationQueue = new Queue(1);
+		/* Create a queue for notifications (replies-only on tag: 0) */
+		notificationQueue = new Queue(0);
 
 		/* Add these queues to the tracker */
 		manager.addQueue(reqRepQueue);
@@ -81,7 +81,7 @@ public final class DClient
 		data ~= password;
 
 		/* Send the protocol data */
-		DataMessage protocolData = new DataMessage(0, data);
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
 		bSendMessage(socket, protocolData.encode());
 
 		/* Receive the server's response */
@@ -107,7 +107,7 @@ public final class DClient
 		data ~= channel;
 
 		/* Send the protocol data */
-		DataMessage protocolData = new DataMessage(0, data);
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
 		bSendMessage(socket, protocolData.encode());
 
 		/* Receive the server's response */
@@ -130,7 +130,7 @@ public final class DClient
 		byte[] data = [6];
 
 		/* Send the protocol data */
-		DataMessage protocolDataMsg = new DataMessage(0, data);
+		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), data);
 		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
@@ -185,7 +185,7 @@ public final class DClient
 		protocolData ~= cast(byte[])message;
 
 		/* Send the protocol data */
-		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
 		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
@@ -212,7 +212,7 @@ public final class DClient
 		protocolData ~= cast(byte[])channel;
 
 		/* Send the protocol data */
-		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
 		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
@@ -252,7 +252,7 @@ public final class DClient
 		protocolData ~= cast(byte[])channelName;
 
 		/* Send the protocol data */
-		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
 		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
@@ -301,7 +301,7 @@ public final class DClient
 		byte[] protocolData = [11];
 
 		/* Send the protocol data */
-		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
+		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
 		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
