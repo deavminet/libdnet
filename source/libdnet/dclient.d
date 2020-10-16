@@ -7,6 +7,7 @@ import std.socket;
 import std.stdio;
 import std.conv : to;
 import std.string : split;
+import bmessage : bSendMessage = sendMessage;
 
 public final class DClient
 {
@@ -81,7 +82,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolData = new DataMessage(0, data);
-		socket.send(protocolData.encode());
+		bSendMessage(socket, protocolData.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
@@ -107,7 +108,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolData = new DataMessage(0, data);
-		socket.send(protocolData.encode());
+		bSendMessage(socket, protocolData.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
@@ -130,7 +131,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(0, data);
-		socket.send(protocolDataMsg.encode());
+		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
@@ -185,7 +186,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
-		socket.send(protocolDataMsg.encode());
+		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
@@ -212,7 +213,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
-		socket.send(protocolDataMsg.encode());
+		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
@@ -252,7 +253,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
-		socket.send(protocolDataMsg.encode());
+		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
@@ -301,7 +302,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(0, protocolData);
-		socket.send(protocolDataMsg.encode());
+		bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();

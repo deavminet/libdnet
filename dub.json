@@ -4,11 +4,12 @@
 	],
 	"copyright": "Copyright © 2020, Tristan B. Kildaire",
 	"dependencies": {
+		"bformat": "~>1.0.8",
 		"tristanable": "~>0.1.0"
 	},
 	"description": "dnet client library",
 	"license": "LGPL v2.1",
 	"name": "libdnet",
-	"targetType": "library",
-	"targetPath": "bin"
+	"targetPath": "bin",
+	"targetType": "library"
 }
