@@ -3,6 +3,7 @@ module libdnet.dclient;
 import tristanable.manager : Manager;
 import tristanable.queue : Queue;
 import tristanable.encoding : DataMessage;
+import tristanable.queueitem : QueueItem;
 import std.socket;
 import std.stdio;
 import std.conv : to;
@@ -62,7 +63,22 @@ public final class DClient
 		manager.addQueue(notificationQueue);
 	}
 
+	/**
+	* Receives the head of the notification queue
+	*/
+	private byte[] awaitNotification()
+	{
+		/* The received notification */
+		byte[] notification;
 
+		/* Await the notification */
+		QueueItem queueItem = notificationQueue.dequeue();
+
+		/* Grab the notification's data */
+		notification = queueItem.getData();
+
+		return notification;
+	}
 
 	/**
 	* Authenticates as a client with the server
