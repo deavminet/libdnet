@@ -66,7 +66,7 @@ public final class DClient
 	/**
 	* Receives the head of the notification queue
 	*/
-	private byte[] awaitNotification()
+	public byte[] awaitNotification()
 	{
 		/* The received notification */
 		byte[] notification;
