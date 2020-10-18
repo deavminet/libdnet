@@ -139,7 +139,18 @@ public final class DClient
 	*/
 	public void setStatus(string status)
 	{
+		/* The protocol data to send */
+		byte[] data = [13];
+		data ~= status;
 
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+		// return cast(bool)resp[0];
 	}
 
 	/**
