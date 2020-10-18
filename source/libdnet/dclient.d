@@ -168,8 +168,8 @@ public final class DClient
 		{
 			/* The member info */
 			ubyte len1 = resp[1];
-			ubyte len2 = resp[1+len1];
-			status = cast(string)resp[1+len1+len2..resp.length];
+			ubyte len2 = resp[1+len1+1];
+			status = cast(string)resp[1+len1+1+len2+1..resp.length];
 		}
 		else
 		{
