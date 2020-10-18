@@ -133,6 +133,54 @@ public final class DClient
 	}
 
 	/**
+	* Set your status
+	*
+	*
+	*/
+	public void setStatus(string status)
+	{
+
+	}
+
+	/**
+	* Get the memberinfo of a given user
+	*
+	* TODO: Return more thna just status
+	*/
+	public string getMemberInfo(string user)
+	{
+		/* The protocol data to send */
+		byte[] data = [12];
+		data ~= user;
+
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+
+		string status;
+
+		/* If it worked */
+		if(cast(bool)resp[0])
+		{
+			/* The member info */
+			ubyte len1 = resp[1];
+			ubyte len2 = resp[1+len1];
+			status = cast(string)resp[1+len1+len2..resp.length];
+		}
+		else
+		{
+			/* TODO: Handle error */
+		}
+
+		return status;
+	}
+
+
+	/**
 	* Lists all the channels on the server
 	*
 	* @returns string[] the list of channels
