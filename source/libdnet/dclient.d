@@ -251,6 +251,35 @@ public final class DClient
 		return propertyValue;
 	}
 
+	/**
+	* Check's whether the user has the given property
+	*/
+	public bool isProperty(string user, string property)
+	{
+		/* The property's value */
+		bool status;
+
+		/* The protocol data to send */
+		byte[] data = [19];
+		data ~= user~","~property;
+
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+		/* If it worked */
+		if(cast(bool)resp[0])
+		{
+			/* Get the property line */
+			status = cast(bool)resp[1];
+		}
+
+		return status;
+	}
+
 
 	/**
 	* Lists all the channels on the server
