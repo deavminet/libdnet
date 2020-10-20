@@ -280,6 +280,32 @@ public final class DClient
 		return status;
 	}
 
+	/**
+	* Set's the given property of yourself to the given value
+	*/
+	public void setProperty(string property, string propertyValue)
+	{
+		/* The property's value */
+		bool status;
+
+		/* The protocol data to send */
+		byte[] data = [17];
+		data ~= property~","~propertyValue;
+
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+		/* If it worked */
+		if(cast(bool)resp[0])
+		{
+			
+		}
+	}
+
 
 	/**
 	* Lists all the channels on the server
