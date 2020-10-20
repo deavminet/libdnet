@@ -222,6 +222,35 @@ public final class DClient
 		return properties;
 	}
 
+	/**
+	* Get a property's value
+	*/
+	public string getProperty(string user, string property)
+	{
+		/* The property's value */
+		string propertyValue;
+
+		/* The protocol data to send */
+		byte[] data = [16];
+		data ~= user~","~property;
+
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+		/* If it worked */
+		if(cast(bool)resp[0])
+		{
+			/* Get the property line */
+			propertyValue = cast(string)resp[1..resp.length];
+		}
+
+		return propertyValue;
+	}
+
 
 	/**
 	* Lists all the channels on the server
