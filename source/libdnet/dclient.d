@@ -309,7 +309,7 @@ public final class DClient
 	/**
 	* Delete's the given property of yourself
 	*/
-	public void deleteProperty(string property)
+	public void delete Property(string property)
 	{
 		/* The property's value */
 		bool status;
