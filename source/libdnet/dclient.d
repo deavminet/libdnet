@@ -306,6 +306,34 @@ public final class DClient
 		}
 	}
 
+	/**
+	* Delete's the given property of yourself
+	*/
+	public void deleteProperty(string property)
+	{
+		/* The property's value */
+		bool status;
+
+		/* The protocol data to send */
+		byte[] data = [18];
+		data ~= property;
+
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+		/* If it worked */
+		if(cast(bool)resp[0])
+		{
+			
+		}
+	}
+
+	
+
 
 	/**
 	* Lists all the channels on the server
