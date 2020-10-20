@@ -192,6 +192,38 @@ public final class DClient
 
 
 	/**
+	* Lists all properties of the given user
+	*/
+	public string[] getProperties(string user)
+	{
+		/* The protocol data to send */
+		byte[] data = [15];
+		data ~= user;
+
+		/* Send the protocol data */
+		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
+		bSendMessage(socket, protocolData.encode());
+
+		/* Receive the server's response */
+		byte[] resp = reqRepQueue.dequeue().getData();
+
+		/* Received list of properties */
+		string[] properties;
+
+		/* If it worked */
+		if(cast(bool)resp[0])
+		{
+			/* Get the property line */
+			string propertyLine = cast(string)resp[1..resp.length];
+
+			properties = split(propertyLine, ",");
+		}
+
+		return properties;
+	}
+
+
+	/**
 	* Lists all the channels on the server
 	*
 	* @returns string[] the list of channels
