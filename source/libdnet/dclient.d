@@ -17,17 +17,12 @@ public final class DClient
 	*/
 	private Manager manager;
 	private Socket socket;
+
 	/* Create a queue for normal traffic (request-reply on tag: 0) */
 	private	Queue reqRepQueue;
 
-		/* Create a queue for notifications (replies-only on tag: 1) */
+	/* Create a queue for notifications (replies-only on tag: 1) */
 	private Queue notificationQueue;
-
-
-	/* TODO: Tristsnable doesn't, unlike my java version, let youn really reuse tags */
-	/* TODO: Reason is after use they do not get deleted, only later by garbage collector */
-	/* TODO: To prevent weird stuff from possibly going down, we use unique ones each time */
-	private long i = 20;
 
 	/**
 	* Constructs a new DClient and connects
@@ -46,6 +41,8 @@ public final class DClient
 		/* Initialize tristanable */
 		initTristanable(socket);
 	}
+
+	/* TODO: Create a new queue actually for each command (this is for performance) - as we will have server spawn workers */
 
 	private void initTristanable(Socket socket)
 	{
@@ -449,9 +446,6 @@ public final class DClient
 			/* TODO: Error handling */
 		}
 
-		/* Set next available tag */
-		i++;
-
 		return members;
 	}
 
@@ -505,9 +499,6 @@ public final class DClient
 			/* TODO: Error handling */
 		}
 
-		/* Set next available tag */
-		i++;
-
 		return memberCount;
 	}
 
@@ -536,9 +527,6 @@ public final class DClient
 		{
 			/* TODO: Error handling */
 		}
-
-		/* Set next available tag */
-		i++;
 
 		return motd;
 	}
