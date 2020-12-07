@@ -1,1 +1,4 @@
-# libdnet
+libdnet
+=======
+
+DNET client library.
