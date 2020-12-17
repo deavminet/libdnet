@@ -235,6 +235,11 @@ public final class DClient
 
 				properties = split(propertyLine, ",");
 			}
+			/* If it didn't work (user specified invalid) */
+			else
+			{
+				throw new DClientException("Invalid user for get property");
+			}
 
 			return properties;
 		}
