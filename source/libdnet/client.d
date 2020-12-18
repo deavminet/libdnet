@@ -347,7 +347,7 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
-		bool status = bSendMessage(socket, protocolData.encode());
+		status = bSendMessage(socket, protocolData.encode());
 
 		/* If the send worked */
 		if(status)
