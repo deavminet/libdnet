@@ -300,7 +300,7 @@ public final class DClient
 	public bool isProperty(string user, string property)
 	{
 		/* The property's value */
-		bool status;
+		bool propStatus;
 
 		/* The protocol data to send */
 		byte[] data = [19];
@@ -308,19 +308,29 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
-		bSendMessage(socket, protocolData.encode());
+		bool status = bSendMessage(socket, protocolData.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
-
-		/* If it worked */
-		if(cast(bool)resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			/* Get the property line */
-			status = cast(bool)resp[1];
-		}
 
-		return status;
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
+
+			/* If it worked */
+			if(cast(bool)resp[0])
+			{
+				/* Get the property line */
+				propStatus = cast(bool)resp[1];
+			}
+
+			return propStatus;
+		}
+		/* If the send failed */
+		else
+		{
+			throw new DNetworkError("isprop");
+		}
 	}
 
 	/**
