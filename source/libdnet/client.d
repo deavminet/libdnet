@@ -238,7 +238,7 @@ public final class DClient
 			/* If it didn't work (user specified invalid) */
 			else
 			{
-				throw new DClientException("Invalid user for get property");
+				throw new DClientException("Invalid user for get propertys");
 			}
 
 			return properties;
@@ -278,6 +278,11 @@ public final class DClient
 			{
 				/* Get the property line */
 				propertyValue = cast(string)resp[1..resp.length];
+			}
+			/* If it didn't work (user specified invalid) */
+			else
+			{
+				throw new DClientException("Invalid user or property for get property");
 			}
 
 			return propertyValue;
