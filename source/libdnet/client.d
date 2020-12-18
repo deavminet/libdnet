@@ -364,7 +364,7 @@ public final class DClient
 		/* If the send failed */
 		else
 		{
-			throw new DNetworkError("setprop");
+			throw new DNetworkError("setprop"); 
 		}
 	}
 
