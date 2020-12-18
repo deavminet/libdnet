@@ -246,7 +246,7 @@ public final class DClient
 		/* If the send failed */
 		else
 		{
-			throw new DNetworkError("getprop");
+			throw new DNetworkError("getprops");
 		}
 	}
 
@@ -264,19 +264,29 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
-		bSendMessage(socket, protocolData.encode());
+		bool status = bSendMessage(socket, protocolData.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
-
-		/* If it worked */
-		if(cast(bool)resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			/* Get the property line */
-			propertyValue = cast(string)resp[1..resp.length];
-		}
 
-		return propertyValue;
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
+
+			/* If it worked */
+			if(cast(bool)resp[0])
+			{
+				/* Get the property line */
+				propertyValue = cast(string)resp[1..resp.length];
+			}
+
+			return propertyValue;
+		}
+		/* If the send failed */
+		else
+		{
+			throw new DNetworkError("getprop");
+		}
 	}
 
 	/**
