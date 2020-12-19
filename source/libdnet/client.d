@@ -279,7 +279,7 @@ public final class DClient
 				/* Get the property line */
 				propertyValue = cast(string)resp[1..resp.length];
 			}
-			/* If it didn't work (user specified invalid) */
+			/* If it didn't work (user/property specified invalid) */
 			else
 			{
 				throw new DClientException("Invalid user or property for get property");
@@ -323,6 +323,11 @@ public final class DClient
 				/* Get the property line */
 				propStatus = cast(bool)resp[1];
 			}
+			/* If it didn't work (user/property specified invalid) */
+			else
+			{
+				throw new DClientException("Invalid user or property for is property");
+			}
 
 			return propStatus;
 		}
@@ -360,6 +365,11 @@ public final class DClient
 			{
 				
 			}
+			/* If it didn't work (user/property specified invalid) */
+			else
+			{
+				throw new DClientException("Invalid property for set property");
+			}
 		}
 		/* If the send failed */
 		else
@@ -382,15 +392,30 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolData = new DataMessage(reqRepQueue.getTag(), data);
-		bSendMessage(socket, protocolData.encode());
+		status = bSendMessage(socket, protocolData.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
-
-		/* If it worked */
-		if(cast(bool)resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			
+
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
+
+			/* If it worked */
+			if(cast(bool)resp[0])
+			{
+				
+			}
+			/* If it didn't work (property specified invalid) */
+			else
+			{
+				throw new DClientException("Invalid property for delete property");
+			}
+		}
+		/* If the send failed */
+		else
+		{
+			throw new DNetworkError("delprop");
 		}
 	}
 
