@@ -437,20 +437,35 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), data);
-		bSendMessage(socket, protocolDataMsg.encode());
+		bool status = bSendMessage(socket, protocolDataMsg.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
-
-		/* Only generate a list if command was successful */
-		if(resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			/* Generate the channel list */
-			string channelList = cast(string)resp[1..resp.length];
-			channels = split(channelList, ",");
-		}
 
-		return channels;
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
+
+			/* Only generate a list if command was successful */
+			if(resp[0])
+			{
+				/* Generate the channel list */
+				string channelList = cast(string)resp[1..resp.length];
+				channels = split(channelList, ",");
+			}
+			/* If it didn't work */
+			else
+			{
+				throw new DClientException("Channel list error");
+			}
+
+			return channels;
+		}
+		/* If the send failed */
+		else
+		{
+			throw new DNetworkError("listchannels");
+		}
 	}
 
 	public Manager getManager()
