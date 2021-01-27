@@ -551,24 +551,33 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
-		bSendMessage(socket, protocolDataMsg.encode());
+		bool status = bSendMessage(socket, protocolDataMsg.encode());
 
 		/* Receive the server's response */
 		byte[] resp = reqRepQueue.dequeue().getData();
 
-		/* If the operation completed successfully */
-		if(resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			string memberList = cast(string)resp[1..resp.length];
-			members = split(memberList, ",");
+			/* If the operation completed successfully */
+			if(resp[0])
+			{
+				string memberList = cast(string)resp[1..resp.length];
+				members = split(memberList, ",");
+			}
+			/* If there was an error */
+			else
+			{
+				throw new DClientException("List member error");
+			}
+
+			return members;
 		}
-		/* If there was an error */
+		/* If the list failed */
 		else
 		{
-			/* TODO: Error handling */
+			throw new DNetworkError("listmembers");
 		}
-
-		return members;
 	}
 
 	/**
