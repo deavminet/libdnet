@@ -507,12 +507,21 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
-		bSendMessage(socket, protocolDataMsg.encode());
+		bool status = bSendMessage(socket, protocolDataMsg.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
+		/* If the send worked */
+		if(status)
+		{
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
 
-		return cast(bool)resp[0];
+			return cast(bool)resp[0];
+		}
+		/* If the send failed */
+		else
+		{
+			throw new DNetworkError("sendmessage");
+		}
 	}
 
 	/**
