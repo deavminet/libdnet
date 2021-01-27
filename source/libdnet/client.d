@@ -269,7 +269,6 @@ public final class DClient
 		/* If the send worked */
 		if(status)
 		{
-
 			/* Receive the server's response */
 			byte[] resp = reqRepQueue.dequeue().getData();
 
@@ -313,7 +312,6 @@ public final class DClient
 		/* If the send worked */
 		if(status)
 		{
-
 			/* Receive the server's response */
 			byte[] resp = reqRepQueue.dequeue().getData();
 
@@ -397,7 +395,6 @@ public final class DClient
 		/* If the send worked */
 		if(status)
 		{
-
 			/* Receive the server's response */
 			byte[] resp = reqRepQueue.dequeue().getData();
 
@@ -442,7 +439,6 @@ public final class DClient
 		/* If the send worked */
 		if(status)
 		{
-
 			/* Receive the server's response */
 			byte[] resp = reqRepQueue.dequeue().getData();
 
@@ -553,12 +549,13 @@ public final class DClient
 		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
 		bool status = bSendMessage(socket, protocolDataMsg.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
 
 		/* If the send worked */
 		if(status)
 		{
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
+
 			/* If the operation completed successfully */
 			if(resp[0])
 			{
@@ -597,40 +594,49 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
-		bSendMessage(socket, protocolDataMsg.encode());
+		bool status = bSendMessage(socket, protocolDataMsg.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
-
-		/* Check if the operation completed successfully */
-		if(resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			/* Length as byte array */
-			byte[] numberBytes;
-			numberBytes.length = 8;
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
 
-			/* As Skippy would say, this is jank, but I literay am so lazy now hehe */
-			memberCount = *cast(long*)resp[1..resp.length].ptr;
+			/* Check if the operation completed successfully */
+			if(resp[0])
+			{
+				/* Length as byte array */
+				byte[] numberBytes;
+				numberBytes.length = 8;
 
-			/* Decode the length (Big Endian) to Little Endian */
-			numberBytes[0] = *((cast(byte*)&memberCount)+7);
-			numberBytes[1] = *((cast(byte*)&memberCount)+6);
-			numberBytes[2] = *((cast(byte*)&memberCount)+5);
-			numberBytes[3] = *((cast(byte*)&memberCount)+4);
-			numberBytes[4] = *((cast(byte*)&memberCount)+3);
-			numberBytes[5] = *((cast(byte*)&memberCount)+2);
-			numberBytes[6] = *((cast(byte*)&memberCount)+1);
-			numberBytes[7] = *((cast(byte*)&memberCount)+0);
+				/* As Skippy would say, this is jank, but I literay am so lazy now hehe */
+				memberCount = *cast(long*)resp[1..resp.length].ptr;
 
-			memberCount = *cast(long*)numberBytes.ptr;
-			
+				/* Decode the length (Big Endian) to Little Endian */
+				numberBytes[0] = *((cast(byte*)&memberCount)+7);
+				numberBytes[1] = *((cast(byte*)&memberCount)+6);
+				numberBytes[2] = *((cast(byte*)&memberCount)+5);
+				numberBytes[3] = *((cast(byte*)&memberCount)+4);
+				numberBytes[4] = *((cast(byte*)&memberCount)+3);
+				numberBytes[5] = *((cast(byte*)&memberCount)+2);
+				numberBytes[6] = *((cast(byte*)&memberCount)+1);
+				numberBytes[7] = *((cast(byte*)&memberCount)+0);
+
+				memberCount = *cast(long*)numberBytes.ptr;
+				
+			}
+			else
+			{
+				throw new DClientException("Get member count error");
+			}
+
+			return memberCount;
 		}
+		/* If the list failed */
 		else
 		{
-			/* TODO: Error handling */
+			throw new DNetworkError("getmembercount");
 		}
-
-		return memberCount;
 	}
 
 	public string getMotd()
