@@ -649,23 +649,32 @@ public final class DClient
 
 		/* Send the protocol data */
 		DataMessage protocolDataMsg = new DataMessage(reqRepQueue.getTag(), protocolData);
-		bSendMessage(socket, protocolDataMsg.encode());
+		bool status = bSendMessage(socket, protocolDataMsg.encode());
 
-		/* Receive the server's response */
-		byte[] resp = reqRepQueue.dequeue().getData();
-
-		/* Check if the operation completed successfully */
-		if(resp[0])
+		/* If the send worked */
+		if(status)
 		{
-			/* Set the message of the day */
-			motd = cast(string)resp[1..resp.length];
+			/* Receive the server's response */
+			byte[] resp = reqRepQueue.dequeue().getData();
+
+			/* Check if the operation completed successfully */
+			if(resp[0])
+			{
+				/* Set the message of the day */
+				motd = cast(string)resp[1..resp.length];
+			}
+			else
+			{
+				throw new DClientException("Get motd error");
+			}
+
+			return motd;
 		}
+		/* If the list failed */
 		else
 		{
-			/* TODO: Error handling */
+			throw new DNetworkError("getmotd");
 		}
-
-		return motd;
 	}
 
 	/**
