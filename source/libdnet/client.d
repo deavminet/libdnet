@@ -480,9 +480,8 @@ public final class DClient
 	* a user, true if user, false if channel
 	* @param location the username/channel to send to
 	* @param message the message to send
-	* @returns bool whether the send worked or not
 	*/
-	public bool sendMessage(bool isUser, string location, string message)
+	public void sendMessage(bool isUser, string location, string message)
 	{
 		/* The protocol data to send */
 		byte[] protocolData = [5];
@@ -515,7 +514,16 @@ public final class DClient
 			/* Receive the server's response */
 			byte[] resp = reqRepQueue.dequeue().getData();
 
-			return cast(bool)resp[0];
+			/* Only generate a send message was successful */
+			if(resp[0])
+			{
+				/* Nothing */
+			}
+			/* If it didn't work */
+			else
+			{
+				throw new DClientException("Send message error");
+			}
 		}
 		/* If the send failed */
 		else
