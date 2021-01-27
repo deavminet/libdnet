@@ -691,5 +691,6 @@ public final class DClient
 		/* TODO: Not the above, it's actually garbage collector */
 		//manager.stopManager();	
 		writeln("manager stopped");
+		/* TODO: Bruh it has been months, till this is fixed I will keep up the cock-and-ball torture (27th January 2021)*/
 	}
 }
