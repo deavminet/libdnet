@@ -1,2 +1,25 @@
 syntax="proto3";
 
+//DNETMessage
+//
+//This is the container for all message types
+message DNETMessage
+{
+    enum MessageType
+    {
+        AUTH = 0;
+        REGISTER = 1;
+    }
+
+    MessageType type = 1;
+
+
+}
+
+//UserMessage
+//
+//All authenticated messages
+message UserMessage
+{
+
+}
