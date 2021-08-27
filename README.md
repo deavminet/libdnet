@@ -1,7 +1,7 @@
 libdnet
 =======
 
-DNET client library.
+DNET client library. This library also contains some data structures used by the server.
 
 ## Data Structures
 

@@ -7,7 +7,7 @@
 		"bformat": "~>1.0.8",
 		"tristanable": "~>2.2.0"
 	},
-	"description": "dnet client library",
+	"description": "dnet client library and general data structure library",
 	"license": "LGPL v2.1",
 	"name": "libdnet",
 	"targetPath": "bin",
