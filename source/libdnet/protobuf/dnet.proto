@@ -29,7 +29,7 @@ message DNETMessage
 // These represents account control messages for things
 // such as account management, authentication, profile
 // manipulation etc.
-message AccountCommand
+message AccountMessage
 {
     enum MessageType
     {
@@ -48,7 +48,7 @@ message AccountCommand
 // ChannelMessage
 //
 // These represent channel commands
-message ChannelCommand
+message ChannelMessage
 {
     enum MessageType
     {
