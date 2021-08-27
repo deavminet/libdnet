@@ -1,0 +1,29 @@
+syntax="proto3";
+
+// AccountMessage
+//
+// These represents account control messages for things
+// such as account management, authentication, profile
+// manipulation etc.
+message AccountMessage
+{
+    enum MessageType
+    {
+        AUTH = 0;
+        REGISTRATION = 1;
+        DEREG = 2;
+        GET_PROFILE_PROPS = 3;
+        SET_PROFILE_PROP = 4;
+        GET_PROFILE_PROP = 5;
+        LOGOUT = 6;
+    }
+
+    // The type of the account command
+    MessageType type = 1;
+
+    // The user to which the command applies
+    string name = 2;
+
+    // Additional data (dependent on command)
+    bytes additionalData = 3;
+}

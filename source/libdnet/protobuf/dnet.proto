@@ -1,0 +1,33 @@
+syntax="proto3";
+
+import "source/libdnet/protobuf/account.proto";
+import "source/libdnet/protobuf/channel.proto";
+import "source/libdnet/protobuf/server.proto";
+import "source/libdnet/protobuf/property.proto";
+
+// DNETMessage
+//
+// This is the container for all message types
+message DNETMessage
+{
+    enum MessageType
+    {
+        // For all AccountMessage messages
+        ACCOUNT = 0;
+
+        // For all ChannelMessage messages
+        CHANNEL = 1;
+
+        // For all ServerMessage messages
+        SERVER = 2;
+    }
+
+    // Type of message
+    MessageType type = 1;
+
+    // Message contents
+    bytes content = 2;
+}
+
+
+

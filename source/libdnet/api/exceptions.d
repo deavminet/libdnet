@@ -1,4 +1,4 @@
-module libdnet.exceptions;
+module libdnet.api.exceptions;
 
 public class DClientException : Exception
 {

@@ -1,4 +1,4 @@
-module libdnet.client;
+module libdnet.api.client;
 
 import tristanable.manager : Manager;
 import tristanable.queue : Queue;

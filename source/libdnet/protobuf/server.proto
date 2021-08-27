@@ -1,0 +1,25 @@
+syntax="proto3";
+
+// ServerMessage
+//
+// These represent things that control the server
+// such as listing all channels, getting server
+// properties etc.
+//
+// This is also used for server-to-server communications
+message ServerMessage
+{
+    enum MessageType
+    {
+        LIST_CHANNELS = 0;
+        LIST_USERS = 1;
+        GET_SERVER_PROPS = 2;
+        GET_SERVER_PROP = 3;
+    }
+
+    // The type of the server command
+    MessageType type = 1;
+
+    // Additional data (dependent on command)
+    bytes additionalData = 2;
+}

@@ -1,0 +1,29 @@
+syntax="proto3";
+
+// ChannelMessage
+//
+// These represent channel commands
+message ChannelMessage
+{
+    enum MessageType
+    {
+        CREATE = 0;
+        DESTROY = 1;
+        JOIN = 2;
+        LEAVE = 3;
+        SET_PROP = 4;
+        GET_PROPS = 5;
+        GET_MEMBERS = 6;
+        GET_PROP = 7;
+        NEW_MESSAGE_ALERT = 8;
+    }
+
+    // The type of channel command
+    MessageType type = 1;
+
+    // The channel to which the command applies
+    string name = 2;
+
+    // Additional data (dependent on command)
+    bytes additionalData = 3;
+}
