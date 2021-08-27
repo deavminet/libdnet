@@ -43,7 +43,13 @@ message AccountMessage
     }
 
     // The type of the account command
-    MessageType type = 1;
+    MessageType type = 0;
+
+    // The user to which the command applies
+    string name = 1;
+
+    // Additional data (dependent on command)
+    bytes additionalData = 2;
 }
 
 // ChannelMessage
