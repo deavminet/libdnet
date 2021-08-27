@@ -11,7 +11,11 @@ message DNETMessage
         REGISTER = 1;
     }
 
+    // Type of message
     MessageType type = 1;
+
+    // Message contents
+    bytes content = 2;
 
 
 }
