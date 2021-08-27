@@ -1,3 +1,4 @@
 .dub/build/application-debug-linux.posix-x86_64-dmd_2092-F7EF2266A0041FF593C38D04B9811039/libdnet
 .dub/build/library-debug-linux.posix-x86_64-dmd_2094-4C236CCC2C547463FED30313F9D0DADC/liblibdnet.a
 bin/liblibdnet.a
+bin/liblibdnet.a
