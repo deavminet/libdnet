@@ -9,6 +9,8 @@ message DNETMessage
     {
         AUTH = 0;
         REGISTER = 1;
+        CHANNEL_CMD = 2;
+        LIST_CHANS = 3;
     }
 
     // Type of message
@@ -17,6 +19,29 @@ message DNETMessage
     // Message contents
     bytes content = 2;
 }
+
+// ChannelMessage
+//
+// These represent channel commands
+message ChannelCommand
+{
+    enum MessageType
+    {
+        CREATE = 0;
+        DESTROY = 1;
+        JOIN = 2;
+        LEAVE = 3;
+        SET_PERMS = 4;
+        GET_PERMS = 5;
+    }
+
+    // The channel to which the command applies
+    string name;
+
+    // Additional data (dependent on command)
+    bytes additionalData;
+}
+
 
 //UserMessage
 //
