@@ -16,8 +16,6 @@ message DNETMessage
 
     // Message contents
     bytes content = 2;
-
-
 }
 
 //UserMessage
