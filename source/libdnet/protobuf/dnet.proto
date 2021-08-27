@@ -7,9 +7,13 @@ message DNETMessage
 {
     enum MessageType
     {
+        // For all AccountMessage messages
         AUTH = 0;
         REGISTER = 1;
-        CHANNEL_CMD = 2;
+
+        // For all ChannelMessage messages
+        CHANNEL = 2;
+
         LIST_CHANS = 3;
     }
 
@@ -44,27 +48,21 @@ message ChannelCommand
     bytes additionalData;
 }
 
-// Channel Property
+// Channel/User Property
 //
-// Represents a channel property which is a mapping
+// Represents a channel/user property which is a mapping
 // of a key to a value (bytes) of which its interpretation
 // is solely up to the user
-message ChannelProperty
+message Property
 {
     // Property's name
     string name;
-    
+
     // The property's data
     bytes data;
 }
 
-//UserMessage
-//
-//All authenticated messages
-message UserMessage
-{
 
-}
 
 message ProfileDetails
 {
