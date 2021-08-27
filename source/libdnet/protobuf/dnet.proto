@@ -85,7 +85,3 @@ message Property
     // The property's data
     bytes data;
 }
-
-
-
-
