@@ -18,5 +18,10 @@ class ServerMessage
         LIST_USERS = 1,
         GET_SERVER_PROPS = 2,
         GET_SERVER_PROP = 3,
+        S2S_MESSAGE = 4,
     }
+}
+
+class STSMessage
+{
 }
