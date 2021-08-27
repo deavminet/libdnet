@@ -31,8 +31,10 @@ message ChannelCommand
         DESTROY = 1;
         JOIN = 2;
         LEAVE = 3;
-        SET_PERMS = 4;
-        GET_PERMS = 5;
+        SET_PROP = 4;
+        GET_PROPS = 5;
+        GET_MEMBERS = 6;
+        GET_PROP = 7;
     }
 
     // The channel to which the command applies
@@ -42,6 +44,19 @@ message ChannelCommand
     bytes additionalData;
 }
 
+// Channel Property
+//
+// Represents a channel property which is a mapping
+// of a key to a value (bytes) of which its interpretation
+// is solely up to the user
+message ChannelProperty
+{
+    // Property's name
+    string name;
+    
+    // The property's data
+    bytes data;
+}
 
 //UserMessage
 //
