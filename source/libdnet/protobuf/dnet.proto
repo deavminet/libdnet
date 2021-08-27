@@ -24,7 +24,26 @@ message DNETMessage
     bytes content = 2;
 }
 
+// AccountMessage
+//
+// These represents account control messages for things
+// such as account management, authentication, profile
+// manipulation etc.
+message AccountCommand
+{
+    enum MessageType
+    {
+        AUTH = 0;
+        REGISTRATION = 1;
+        DEREG = 2;
+        GET_PROFILE_PROPS = 3;
+        SET_PROFILE_PROP = 4;
+        GET_PROFILE_PROP = 5;
+    }
 
+    // The type of the account command
+    MessageType type = 1;
+}
 
 // ChannelMessage
 //
