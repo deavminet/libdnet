@@ -8,13 +8,13 @@ message DNETMessage
     enum MessageType
     {
         // For all AccountMessage messages
-        AUTH = 0;
-        REGISTER = 1;
+        ACCOUNT = 0;
 
         // For all ChannelMessage messages
-        CHANNEL = 2;
+        CHANNEL = 1;
 
-        LIST_CHANS = 3;
+        // For all ServerMessage messages
+        SERVER = 3;
     }
 
     // Type of message
@@ -23,6 +23,8 @@ message DNETMessage
     // Message contents
     bytes content = 2;
 }
+
+
 
 // ChannelMessage
 //
@@ -41,11 +43,14 @@ message ChannelCommand
         GET_PROP = 7;
     }
 
+    // The type of channel command
+    MessageType type = 0;
+
     // The channel to which the command applies
-    string name;
+    string name = 1;
 
     // Additional data (dependent on command)
-    bytes additionalData;
+    bytes additionalData = 2;
 }
 
 // Channel/User Property
