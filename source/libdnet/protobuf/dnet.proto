@@ -39,6 +39,7 @@ message AccountMessage
         GET_PROFILE_PROPS = 3;
         SET_PROFILE_PROP = 4;
         GET_PROFILE_PROP = 5;
+        LOGOUT = 6;
     }
 
     // The type of the account command
