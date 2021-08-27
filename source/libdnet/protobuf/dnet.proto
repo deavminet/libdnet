@@ -88,15 +88,4 @@ message Property
 
 
 
-message ProfileDetails
-{
-    string username;
-    string server;
-    repeated UserProperty = 2;
-}
 
-message UserProperty
-{
-    string propertyName;
-    bytes propertyData;
-}
