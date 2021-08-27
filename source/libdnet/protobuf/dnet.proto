@@ -67,6 +67,7 @@ message ChannelMessage
         GET_PROPS = 5;
         GET_MEMBERS = 6;
         GET_PROP = 7;
+        NEW_MESSAGE_ALERT = 8;
     }
 
     // The type of channel command
