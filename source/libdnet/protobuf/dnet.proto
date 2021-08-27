@@ -14,7 +14,7 @@ message DNETMessage
         CHANNEL = 1;
 
         // For all ServerMessage messages
-        SERVER = 3;
+        SERVER = 2;
     }
 
     // Type of message
@@ -43,13 +43,13 @@ message AccountMessage
     }
 
     // The type of the account command
-    MessageType type = 0;
+    MessageType type = 1;
 
     // The user to which the command applies
-    string name = 1;
+    string name = 2;
 
     // Additional data (dependent on command)
-    bytes additionalData = 2;
+    bytes additionalData = 3;
 }
 
 // ChannelMessage
@@ -70,13 +70,13 @@ message ChannelMessage
     }
 
     // The type of channel command
-    MessageType type = 0;
+    MessageType type = 1;
 
     // The channel to which the command applies
-    string name = 1;
+    string name = 2;
 
     // Additional data (dependent on command)
-    bytes additionalData = 2;
+    bytes additionalData = 3;
 }
 
 // Channel/User Property
@@ -87,8 +87,8 @@ message ChannelMessage
 message Property
 {
     // Property's name
-    string name;
+    string name = 1;
 
     // The property's data
-    bytes data;
+    bytes data = 2;
 }
