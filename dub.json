@@ -4,6 +4,7 @@
 	],
 	"copyright": "Copyright © 2020, Tristan B. Kildaire",
 	"dependencies": {
+		"protobuf": "~>0.6.2",
 		"bformat": "~>1.0.8",
 		"tristanable": "~>2.2.0"
 	},
