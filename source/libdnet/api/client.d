@@ -1,5 +1,7 @@
 module libdnet.api.client;
 
+import libdnet.protobuf.dnet;
+
 /**
 * Client
 *
@@ -16,5 +18,5 @@ module libdnet.api.client;
 */
 public final class Client
 {
-    
+
 }
