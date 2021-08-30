@@ -11,7 +11,8 @@ class ChannelMessage
 {
     @Proto(1) MessageType type = protoDefaultValue!MessageType;
     @Proto(2) string name = protoDefaultValue!string;
-    @Proto(3) bytes additionalData = protoDefaultValue!bytes;
+    @Proto(3) string statusCode = protoDefaultValue!string;
+    @Proto(4) bytes additionalData = protoDefaultValue!bytes;
 
     enum MessageType
     {

@@ -24,6 +24,9 @@ message ChannelMessage
     // The channel to which the command applies
     string name = 2;
 
+    // (Only for returns)
+    string statusCode = 3;
+
     // Additional data (dependent on command)
-    bytes additionalData = 3;
+    bytes additionalData = 4;
 }

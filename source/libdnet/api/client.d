@@ -18,5 +18,20 @@ import libdnet.protobuf.dnet;
 */
 public final class Client
 {
+    public Channel createChannel(string name)
+    {
+        Channel newChannel;
+
+        /* TODO: Check if the channel exists firstly */
+        ChannelMessage d = new ChannelMessage();
+        d.name = name;
+        d.type = ChannelMessage.MessageType.CREATE;
+
+        return newChannel;
+    }
+}
+
+public final class Channel
+{
 
 }
