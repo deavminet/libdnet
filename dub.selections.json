@@ -2,7 +2,9 @@
 	"fileVersion": 1,
 	"versions": {
 		"bformat": "1.0.8",
+		"eventy": "0.1.4",
 		"protobuf": "0.6.2",
+		"tasky": "0.0.2",
 		"tristanable": "2.2.0"
 	}
 }

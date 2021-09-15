@@ -4,17 +4,19 @@
 	],
 	"copyright": "Copyright © 2020, Tristan B. Kildaire",
 	"dependencies": {
-		"protobuf": "~>0.6.2",
 		"bformat": "~>1.0.8",
+		"protobuf": "~>0.6.2",
+		"tasky": "~>0.0.2",
 		"tristanable": "~>2.2.0"
 	},
 	"description": "dnet client library and general data structure library",
 	"license": "LGPL v2.1",
 	"name": "libdnet",
+	"preBuildCommands": [
+		"protoc --plugin=\"$HOME/.dub/packages/protobuf-0.6.2/protobuf/protoc_gen_d/../build/protoc-gen-d\" source/libdnet/protobuf/dnet.proto --d_out=source/libdnet/protobuf/.",
+		"chmod +x ./cleanUp.sh",
+		"./cleanUp.sh"
+	],
 	"targetPath": "bin",
-	"targetType": "library",
-	"preBuildCommands": ["protoc --plugin=\"$HOME/.dub/packages/protobuf-0.6.2/protobuf/protoc_gen_d/../build/protoc-gen-d\" source/libdnet/protobuf/dnet.proto --d_out=source/libdnet/protobuf/.",
-						"chmod +x ./cleanUp.sh",
-						"./cleanUp.sh"
-	]
+	"targetType": "library"
 }
