@@ -5,9 +5,9 @@
 	"copyright": "Copyright © 2020, Tristan B. Kildaire",
 	"dependencies": {
 		"bformat": "~>1.0.8",
-		"protobuf": "~>0.6.2",
-		"tasky": "~>0.0.2",
-		"tristanable": "~>2.2.0"
+		"protobuf": "0.6.2",
+		"tasky": "~>0.0.4",
+		"tristanable": "2.3.13"
 	},
 	"description": "dnet client library and general data structure library",
 	"license": "LGPL v2.1",
