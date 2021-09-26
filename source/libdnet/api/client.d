@@ -37,12 +37,43 @@ public struct ConnectionDetails
             throw new DNetException("Address must be tuple of length 2");
         }
         
-        
-        /* FIXME: Also throw for invalid address */
+        /**
+        * Credentials must be valid
+        *
+        * 1. Must not both be empty
+        * 2. We must also strip the username of any whitespace on any side (FIXME)
+        */
+        if(!(credentials[0].length > 0 && credentials[1].length > 0))
+        {
+            throw new DNetException("Username or password has incorrect length");
+        }
 
+        /* Save credentials */
         this.username = credentials[0];
         this.password = credentials[1];
-        this.address = parseAddress(address[0], to!(ushort)(address[1]));
+
+        /**
+        * Addresses must be valid
+        *
+        * 1. Must not be empty
+        */
+        if(address[0].length > 0 && address[1].length > 0)
+        {
+            /* Make sure they pass address syntax check */
+            try
+            {
+                /* Save address */
+                this.address = parseAddress(address[0], to!(ushort)(address[1]));
+            }
+            catch(SocketException)
+            {
+                throw new DNetException("Invalid address format (error in port or address)");
+            }
+        }
+        else
+        {
+            throw new DNetException("Address or port has incorrect length");
+        }
     }
 }
 
