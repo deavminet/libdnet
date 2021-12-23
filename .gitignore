@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/libdnet
+libdnet.so
+libdnet.dylib
+libdnet.dll
+libdnet.a
+libdnet.lib
+libdnet-test-*
+*.exe
+*.o
+*.obj
+*.lst
