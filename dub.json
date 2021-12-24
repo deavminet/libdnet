@@ -5,5 +5,6 @@
 	"copyright": "Copyright © 2021, Tristan B. Kildaire",
 	"description": "Client-side DNET API",
 	"license": "LGPLv2",
-	"name": "libdnet"
+	"name": "libdnet",
+	"targetType": "library"
 }
