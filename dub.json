@@ -3,6 +3,9 @@
 		"Tristan B. Kildaire"
 	],
 	"copyright": "Copyright © 2021, Tristan B. Kildaire",
+	"dependencies": {
+		"msgpack-d": "~>1.0.3"
+	},
 	"description": "Client-side DNET API",
 	"license": "LGPLv2",
 	"name": "libdnet",
