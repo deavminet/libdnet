@@ -55,7 +55,8 @@ struct ServerMessage
 public enum ClientType
 {
 	AUTH,
-	ENTITYMESSAGE
+	ENTITYMESSAGE,
+	FETCH_PROFILE
 }
 
 /**
