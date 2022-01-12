@@ -1,7 +1,7 @@
 /**
 * Type declarations
 */
-module libdnet.types;
+module libdnet.messages.types;
 
 import msgpack;
 
@@ -54,7 +54,8 @@ struct ServerMessage
 */
 public enum ClientType
 {
-	AUTH
+	AUTH,
+	ENTITYMESSAGE
 }
 
 /**
