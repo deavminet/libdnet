@@ -1,13 +1,24 @@
 /**
-* TODO
+* TODO: We should make this a basew class that people have to ovverride and provide implementations for
+* that hook into specific job descriptors
 */
 module libdnet.libdnet;
 
 import std.socket : Address;
+import tasky.engine : Engine;
 
 public class Client
 {
+	private Engine engine;
+
+
 	private Address endpoint;
+
+
+
+
+
+
 
 	/**
 	* TODO: We need to re-write Tasky before we can start work on this (urgent)
@@ -15,11 +26,26 @@ public class Client
 	* TODO: We need to check eventy and make sure it is fully completed and
 	* documented and working (also check if it requires any signal handling, doubt)
 	*/
-	this Client(Address endpoint)
+	this(Address endpoint)
 	{
 		/* TODO: Initialize stuff here */
 
 		this.endpoint = endpoint;
+	}
+
+
+	/**
+	* Connect to the server
+	*/
+	public void connect()
+	{
+		/* FIXME: Don't start Tasky engine till we are actually connected (FIX in Tasky) */
+
+		/* Initialize a new Tasky engine */
+		//engine = new Engine();
+
+		/* Start the Tasky engine */
+		//engine.start();
 	}
 
 
