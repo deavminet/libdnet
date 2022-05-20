@@ -4,7 +4,7 @@
 */
 module libdnet.libdnet;
 
-import std.socket : Address;
+import std.socket : Address, Socket;
 import tasky.engine : Engine;
 
 public class Client
@@ -31,6 +31,13 @@ public class Client
 		/* TODO: Initialize stuff here */
 
 		this.endpoint = endpoint;
+
+		/* Open socket here */
+		Socket sock = new Socket();
+		sock.connect(endpoint);
+
+		/* Initialize a new Tasky engine */
+		engine = new Engine(sock);
 	}
 
 
@@ -39,13 +46,8 @@ public class Client
 	*/
 	public void connect()
 	{
-		/* FIXME: Don't start Tasky engine till we are actually connected (FIX in Tasky) */
-
-		/* Initialize a new Tasky engine */
-		//engine = new Engine();
-
 		/* Start the Tasky engine */
-		//engine.start();
+		engine.start();
 	}
 
 
